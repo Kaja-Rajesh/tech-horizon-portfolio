@@ -1,0 +1,361 @@
+/* ==========================================================================
+   LIVE ANIMATED SPACE ENVIRONMENT FOR LEADERSHIP SECTION
+   ========================================================================== */
+
+.leader-space-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0; /* Directly behind cards and constellation */
+  background: radial-gradient(ellipse at 50% 30%, #090d18 0%, #05070c 80%, #020306 100%);
+  --mouse-x: 0px;
+  --mouse-y: 0px;
+}
+
+/* 1. Deep Space Subtle Cyber Grid */
+.leader-space-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 45%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 45%, transparent 85%);
+  opacity: 0.35;
+  transform: translate3d(calc(var(--mouse-x) * 0.15), calc(var(--mouse-y) * 0.15), 0);
+}
+
+/* 2. Fluid Flowing Atmospheric Nebula Clouds */
+.leader-nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(140px);
+  pointer-events: none;
+  opacity: 0.55;
+  will-change: transform, opacity;
+  transition: opacity 0.5s ease;
+}
+
+.leader-nebula--cyan {
+  top: 12%;
+  left: 6%;
+  width: 580px;
+  height: 580px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.18) 0%, rgba(14, 165, 233, 0.08) 50%, transparent 70%);
+  animation: nebula-drift-cyan 48s ease-in-out infinite alternate;
+  transform: translate3d(calc(var(--mouse-x) * 0.25), calc(var(--mouse-y) * 0.25), 0);
+}
+
+.leader-nebula--violet {
+  bottom: 8%;
+  right: 5%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.2) 0%, rgba(168, 85, 247, 0.08) 55%, transparent 70%);
+  animation: nebula-drift-violet 56s ease-in-out infinite alternate;
+  transform: translate3d(calc(var(--mouse-x) * 0.22), calc(var(--mouse-y) * 0.22), 0);
+}
+
+.leader-nebula--azure {
+  top: 42%;
+  right: 22%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.14) 0%, transparent 65%);
+  animation: nebula-drift-azure 42s ease-in-out infinite alternate;
+  transform: translate3d(calc(var(--mouse-x) * 0.3), calc(var(--mouse-y) * 0.3), 0);
+}
+
+@keyframes nebula-drift-cyan {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(35px, -25px, 0) scale(1.08); }
+  100% { transform: translate3d(-25px, 30px, 0) scale(0.96); }
+}
+
+@keyframes nebula-drift-violet {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-40px, 30px, 0) scale(1.1); }
+  100% { transform: translate3d(30px, -25px, 0) scale(0.94); }
+}
+
+@keyframes nebula-drift-azure {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-30px, -20px, 0) scale(1.06); }
+  100% { transform: translate3d(25px, 25px, 0) scale(0.98); }
+}
+
+/* 3. Live Canvas Starfield */
+.leader-starfield-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 4. Sweeping Orbital Paths */
+.leader-orbital-arcs {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.65;
+  transition: opacity 0.4s ease, filter 0.4s ease;
+  transform: translate3d(calc(var(--mouse-x) * 0.35), calc(var(--mouse-y) * 0.35), 0);
+}
+
+.orbital-path-line {
+  transition: stroke 0.4s ease;
+}
+
+.orbit-path--1 {
+  animation: orbit-flow-1 42s linear infinite;
+}
+
+.orbit-path--2 {
+  animation: orbit-flow-2 48s linear infinite reverse;
+}
+
+.orbit-path--ellipse {
+  animation: rotate-clockwise 75s linear infinite;
+  transform-origin: 0 0;
+}
+
+@keyframes orbit-flow-1 {
+  from { stroke-dashoffset: 400; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes orbit-flow-2 {
+  from { stroke-dashoffset: 400; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Surging Effect on Card Click */
+.leader-space--surge .leader-orbital-arcs {
+  opacity: 1;
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.75));
+}
+
+.leader-space--surge .leader-nebula {
+  opacity: 0.9;
+}
+
+/* 5. Travelling Photons on Orbits */
+.leader-photon-track {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.track-photon-1 {
+  top: 25%;
+  left: 20%;
+  animation: photon-travel-1 18s ease-in-out infinite;
+}
+
+.track-photon-2 {
+  bottom: 35%;
+  right: 25%;
+  background: #a855f7;
+  box-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7;
+  animation: photon-travel-2 22s ease-in-out infinite 4s;
+}
+
+@keyframes photon-travel-1 {
+  0% { transform: translate3d(-10vw, -4vh, 0); opacity: 0; }
+  20% { opacity: 0.9; }
+  80% { opacity: 0.9; }
+  100% { transform: translate3d(70vw, 12vh, 0); opacity: 0; }
+}
+
+@keyframes photon-travel-2 {
+  0% { transform: translate3d(10vw, 4vh, 0); opacity: 0; }
+  20% { opacity: 0.9; }
+  80% { opacity: 0.9; }
+  100% { transform: translate3d(-65vw, -10vh, 0); opacity: 0; }
+}
+
+/* 6. Distant Satellites & Space Assets */
+.leader-space-asset {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
+}
+
+.leader-sat-track {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+.track-sat-high {
+  top: 14%;
+  left: -160px;
+  transform: scale(0.62);
+  animation: sat-high-sweep 95s linear infinite;
+}
+
+.track-sat-low {
+  bottom: 24%;
+  right: -160px;
+  transform: scale(0.58);
+  animation: sat-low-sweep 115s linear infinite 12s;
+}
+
+@keyframes sat-high-sweep {
+  0% { transform: translate3d(-10vw, 0, 0) scale(0.62) rotate(6deg); }
+  50% { transform: translate3d(55vw, 6vh, 0) scale(0.62) rotate(0deg); }
+  100% { transform: translate3d(115vw, -4vh, 0) scale(0.62) rotate(-8deg); }
+}
+
+@keyframes sat-low-sweep {
+  0% { transform: translate3d(10vw, 0, 0) scale(0.58) rotate(-6deg); }
+  50% { transform: translate3d(-55vw, -5vh, 0) scale(0.58) rotate(2deg); }
+  100% { transform: translate3d(-115vw, 4vh, 0) scale(0.58) rotate(8deg); }
+}
+
+/* 7. Exploration Robots Floating Peacefully */
+.leader-drone-track {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+.track-drone-left {
+  top: 36%;
+  left: 4%;
+  transform: scale(0.7);
+  animation: drone-hover-left 34s ease-in-out infinite alternate;
+}
+
+.track-drone-right {
+  bottom: 28%;
+  right: 5%;
+  transform: scale(0.68);
+  animation: drone-hover-right 40s ease-in-out infinite alternate;
+}
+
+@keyframes drone-hover-left {
+  0% { transform: translate3d(0, 0, 0) scale(0.7) rotate(-3deg); }
+  50% { transform: translate3d(35px, -30px, 0) scale(0.7) rotate(3deg); }
+  100% { transform: translate3d(-20px, 25px, 0) scale(0.7) rotate(-2deg); }
+}
+
+@keyframes drone-hover-right {
+  0% { transform: translate3d(0, 0, 0) scale(0.68) rotate(3deg); }
+  50% { transform: translate3d(-40px, 35px, 0) scale(0.68) rotate(-4deg); }
+  100% { transform: translate3d(25px, -20px, 0) scale(0.68) rotate(2deg); }
+}
+
+.leader-beacon-pulse {
+  animation: beacon-glow 2.5s infinite ease-in-out;
+}
+
+.leader-scanner-sweep {
+  animation: scanner-sweep 3s infinite ease-in-out;
+}
+
+/* 8. Occasional Shooting Stars */
+.leader-shooting-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.leader-shooting-star {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, #ffffff 0%, #00d4ff 40%, transparent 100%);
+  border-radius: 9999px;
+  filter: drop-shadow(0 0 6px #00d4ff);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.leader-shooting-star::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1.5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #00d4ff;
+}
+
+.shooting-star-1 {
+  top: 18%;
+  left: 55%;
+  width: 130px;
+  transform: rotate(-38deg);
+  animation: shoot-star-lead-1 12s ease-out infinite 3s;
+}
+
+.shooting-star-2 {
+  top: 45%;
+  left: 75%;
+  width: 110px;
+  transform: rotate(-32deg);
+  animation: shoot-star-lead-2 16s ease-out infinite 9s;
+}
+
+@keyframes shoot-star-lead-1 {
+  0% { transform: translate3d(0, 0, 0) rotate(-38deg); opacity: 0; }
+  5% { opacity: 0.95; }
+  15% { transform: translate3d(-340px, 250px, 0) rotate(-38deg); opacity: 0; }
+  100% { transform: translate3d(-340px, 250px, 0) rotate(-38deg); opacity: 0; }
+}
+
+@keyframes shoot-star-lead-2 {
+  0% { transform: translate3d(0, 0, 0) rotate(-32deg); opacity: 0; }
+  4% { opacity: 0.9; }
+  12% { transform: translate3d(-290px, 220px, 0) rotate(-32deg); opacity: 0; }
+  100% { transform: translate3d(-290px, 220px, 0) rotate(-32deg); opacity: 0; }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN & MOBILE OPTIMIZATION
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .leader-nebula--cyan { width: 440px; height: 440px; }
+  .leader-nebula--violet { width: 480px; height: 480px; }
+  .track-drone-left { left: 1%; transform: scale(0.6); }
+  .track-drone-right { right: 1%; transform: scale(0.6); }
+}
+
+@media (max-width: 768px) {
+  .leader-sat-track { display: none; }
+  .leader-drone-track { display: none; }
+  .shooting-star-2 { display: none; }
+  .leader-nebula { filter: blur(100px); opacity: 0.45; }
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  .leader-nebula,
+  .orbital-path-line,
+  .leader-photon-track,
+  .leader-sat-track,
+  .leader-drone-track,
+  .leader-shooting-star {
+    animation: none !important;
+  }
+}

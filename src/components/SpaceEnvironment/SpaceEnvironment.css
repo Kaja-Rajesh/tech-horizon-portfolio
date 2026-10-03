@@ -1,0 +1,461 @@
+/* GLOBAL FIXED SPACE ENVIRONMENT CONTAINER */
+.space-environment-layer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0; /* Behind all content, cards, and buttons */
+  overflow: hidden;
+  --mouse-px: 0px;
+  --mouse-py: 0px;
+}
+
+/* Curved orbital trajectory lines in background */
+.space-orbital-arcs {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* ==========================================================================
+   3D DEPTH LAYERS & PARALLAX
+   ========================================================================== */
+.space-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.space-layer--bg {
+  transform: translate3d(calc(var(--mouse-px) * 0.25), calc(var(--mouse-py) * 0.25), 0);
+  opacity: 0.6;
+}
+
+.space-layer--mid {
+  transform: translate3d(calc(var(--mouse-px) * 0.55), calc(var(--mouse-py) * 0.55), 0);
+  opacity: 0.8;
+}
+
+.space-layer--fg {
+  transform: translate3d(calc(var(--mouse-px) * 0.95), calc(var(--mouse-py) * 0.95), 0);
+  opacity: 0.95;
+}
+
+/* Asset scaling per depth layer */
+.item-scale-bg {
+  transform: scale(0.48);
+  filter: blur(0.7px);
+}
+
+.item-scale-mid {
+  transform: scale(0.75);
+}
+
+.item-scale-fg {
+  transform: scale(1.05);
+}
+
+/* Space asset general styling */
+.space-asset {
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.8));
+}
+
+/* ==========================================================================
+   PLANETARY BODIES (Edge Placed, Partially Visible)
+   ========================================================================== */
+.space-planet {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* 1. Exo Gas-Giant Planet (Upper Right Periphery) */
+.space-planet--exo {
+  top: -60px;
+  right: -90px;
+  width: 420px;
+  height: 420px;
+  animation: planet-exo-spin 140s linear infinite;
+}
+
+.space-planet--exo .planet-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 45px rgba(0, 212, 255, 0.15));
+}
+
+.planet-atmosphere-glow {
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, rgba(168, 85, 247, 0.1) 50%, transparent 75%);
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.planet-cloud-bands {
+  animation: planet-clouds-drift 45s ease-in-out infinite alternate;
+}
+
+@keyframes planet-clouds-drift {
+  from { transform: translateX(-8px) scaleY(0.95); }
+  to { transform: translateX(8px) scaleY(1.05); }
+}
+
+@keyframes planet-exo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 2. Cyber Terra Planet (Lower Left Periphery) */
+.space-planet--terra {
+  bottom: -60px;
+  left: -80px;
+  width: 320px;
+  height: 320px;
+  animation: planet-terra-sway 60s ease-in-out infinite alternate;
+}
+
+.space-planet--terra .planet-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.15));
+}
+
+.planet-atmosphere-glow--terra {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(14, 165, 233, 0.08) 55%, transparent 70%);
+}
+
+.planet-city-lights {
+  animation: city-lights-flicker 5s infinite ease-in-out;
+}
+
+@keyframes city-lights-flicker {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes planet-terra-sway {
+  from { transform: translate3d(0, 0, 0) rotate(-3deg); }
+  to { transform: translate3d(15px, -10px, 0) rotate(3deg); }
+}
+
+/* ==========================================================================
+   DYNAMIC SHOOTING STARS
+   ========================================================================== */
+.space-shooting-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.shooting-star {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, #ffffff 0%, #00d4ff 40%, transparent 100%);
+  border-radius: 9999px;
+  filter: drop-shadow(0 0 6px #00d4ff);
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(-35deg);
+}
+
+.shooting-star::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -1.5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #00d4ff;
+}
+
+.shooting-star--1 {
+  top: 15%;
+  left: 45%;
+  width: 140px;
+  animation: shoot-star-1 9s ease-out infinite 2s;
+}
+
+.shooting-star--2 {
+  top: 30%;
+  left: 70%;
+  width: 110px;
+  transform: rotate(-42deg);
+  animation: shoot-star-2 13s ease-out infinite 6.5s;
+}
+
+.shooting-star--3 {
+  top: 8%;
+  left: 20%;
+  width: 160px;
+  transform: rotate(-28deg);
+  animation: shoot-star-3 11s ease-out infinite 10s;
+}
+
+@keyframes shoot-star-1 {
+  0% { transform: translate3d(0, 0, 0) rotate(-35deg); opacity: 0; }
+  5% { opacity: 1; }
+  15% { transform: translate3d(-350px, 240px, 0) rotate(-35deg); opacity: 0; }
+  100% { transform: translate3d(-350px, 240px, 0) rotate(-35deg); opacity: 0; }
+}
+
+@keyframes shoot-star-2 {
+  0% { transform: translate3d(0, 0, 0) rotate(-42deg); opacity: 0; }
+  4% { opacity: 0.9; }
+  12% { transform: translate3d(-280px, 250px, 0) rotate(-42deg); opacity: 0; }
+  100% { transform: translate3d(-280px, 250px, 0) rotate(-42deg); opacity: 0; }
+}
+
+@keyframes shoot-star-3 {
+  0% { transform: translate3d(0, 0, 0) rotate(-28deg); opacity: 0; }
+  6% { opacity: 1; }
+  18% { transform: translate3d(-420px, 220px, 0) rotate(-28deg); opacity: 0; }
+  100% { transform: translate3d(-420px, 220px, 0) rotate(-28deg); opacity: 0; }
+}
+
+/* ==========================================================================
+   BEACONS, LIGHTS & SENSORS ANIMATIONS
+   ========================================================================== */
+.beacon-blink-1 {
+  animation: beacon-flash 2.2s infinite ease-in-out;
+}
+
+.beacon-blink-2 {
+  animation: beacon-flash 3.1s infinite ease-in-out 0.8s;
+}
+
+.beacon-pulse {
+  animation: beacon-glow 3s infinite ease-in-out;
+}
+
+@keyframes beacon-flash {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+@keyframes beacon-glow {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+.ion-exhaust-glow {
+  animation: ion-shimmer 2s infinite ease-in-out alternate;
+}
+
+@keyframes ion-shimmer {
+  from { opacity: 0.45; transform: scaleY(0.85); }
+  to { opacity: 0.85; transform: scaleY(1.2); }
+}
+
+.robot-scanner-beam {
+  animation: scanner-sweep 3.5s infinite ease-in-out;
+}
+
+@keyframes scanner-sweep {
+  0%, 100% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+}
+
+/* ==========================================================================
+   CINEMATIC SLOW MOVEMENT TRACKS
+   ========================================================================== */
+.space-track {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* 1. Distant Nano Satellite */
+.track-orbit-distant {
+  top: 12%;
+  left: -120px;
+  animation: orbit-arc-slow 115s linear infinite;
+}
+
+@keyframes orbit-arc-slow {
+  0% { transform: translate3d(-5vw, 0vh, 0) rotate(10deg); }
+  50% { transform: translate3d(55vw, -6vh, 0) rotate(4deg); }
+  100% { transform: translate3d(115vw, 4vh, 0) rotate(-6deg); }
+}
+
+/* 2. Tiny deep space survey drone */
+.track-drift-distant {
+  bottom: 18%;
+  right: -100px;
+  animation: drift-diagonal-distant 130s linear infinite 15s;
+}
+
+@keyframes drift-diagonal-distant {
+  0% { transform: translate3d(5vw, 0vh, 0) rotate(-15deg); }
+  100% { transform: translate3d(-115vw, -18vh, 0) rotate(5deg); }
+}
+
+/* 3. Faint distant probe */
+.track-probe-distant {
+  top: 25%;
+  right: 15%;
+  animation: probe-hover-distant 55s ease-in-out infinite alternate;
+}
+
+@keyframes probe-hover-distant {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(-40px, 35px, 0) rotate(8deg); }
+  100% { transform: translate3d(30px, -25px, 0) rotate(-6deg); }
+}
+
+/* 4. Midground orbital communications satellite */
+.track-orbit-mid {
+  top: 18%;
+  left: -160px;
+  animation: orbit-mid-sweep 78s linear infinite 8s;
+}
+
+@keyframes orbit-mid-sweep {
+  0% { transform: translate3d(-8vw, 0vh, 0) rotate(6deg); }
+  50% { transform: translate3d(52vw, 5vh, 0) rotate(0deg); }
+  100% { transform: translate3d(112vw, -4vh, 0) rotate(-8deg); }
+}
+
+/* 5. Midground autonomous explorer drone */
+.track-float-drone-mid {
+  top: 55%;
+  left: -120px;
+  animation: drone-mid-traverse 68s ease-in-out infinite 20s;
+}
+
+@keyframes drone-mid-traverse {
+  0% { transform: translate3d(-5vw, 0, 0) rotate(4deg); }
+  30% { transform: translate3d(32vw, -5vh, 0) rotate(-2deg); }
+  70% { transform: translate3d(70vw, 4vh, 0) rotate(3deg); }
+  100% { transform: translate3d(112vw, -2vh, 0) rotate(-4deg); }
+}
+
+/* 6. Midground survey drone */
+.track-survey-mid {
+  bottom: 24%;
+  left: 8%;
+  animation: survey-hover-drift 44s ease-in-out infinite alternate;
+}
+
+@keyframes survey-hover-drift {
+  0% { transform: translate3d(0, 0, 0) rotate(-3deg); }
+  50% { transform: translate3d(45px, -30px, 0) rotate(3deg); }
+  100% { transform: translate3d(-35px, 20px, 0) rotate(-2deg); }
+}
+
+/* 7. Foreground Hero Explorer Robot */
+.track-hero-robot-fg {
+  top: 22%;
+  right: 5%;
+  animation: hero-robot-float 32s ease-in-out infinite alternate;
+}
+
+@keyframes hero-robot-float {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  35% { transform: translate3d(-25px, 35px, 0) rotate(4deg); }
+  70% { transform: translate3d(15px, -20px, 0) rotate(-3deg); }
+  100% { transform: translate3d(-10px, 15px, 0) rotate(2deg); }
+}
+
+/* 8. Foreground Recon Science Probe */
+.track-hero-probe-fg {
+  top: 8%;
+  left: 4%;
+  animation: hero-probe-float 38s ease-in-out infinite alternate;
+}
+
+@keyframes hero-probe-float {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  40% { transform: translate3d(30px, 25px, 0) rotate(-5deg); }
+  70% { transform: translate3d(-20px, -15px, 0) rotate(3deg); }
+  100% { transform: translate3d(15px, 10px, 0) rotate(-2deg); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN & MOBILE OPTIMIZATION
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .space-planet--exo {
+    width: 320px;
+    height: 320px;
+    right: -70px;
+    top: -40px;
+  }
+  .space-planet--terra {
+    width: 240px;
+    height: 240px;
+    left: -60px;
+  }
+  .track-hero-robot-fg {
+    right: 2%;
+    transform: scale(0.9);
+  }
+  .track-hero-probe-fg {
+    left: 1%;
+    transform: scale(0.9);
+  }
+  .track-probe-distant {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .space-layer--fg {
+    display: none;
+  }
+  .track-drift-distant {
+    display: none;
+  }
+  .track-survey-mid {
+    display: none;
+  }
+  .item-scale-mid {
+    transform: scale(0.65);
+  }
+  .space-planet--exo {
+    width: 220px;
+    height: 220px;
+    right: -50px;
+    top: -30px;
+    opacity: 0.65;
+  }
+  .space-planet--terra {
+    width: 180px;
+    height: 180px;
+    left: -40px;
+    opacity: 0.65;
+  }
+  .shooting-star--3 {
+    display: none;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .space-track,
+  .space-planet--exo,
+  .space-planet--terra,
+  .shooting-star,
+  .ion-exhaust-glow,
+  .robot-scanner-beam,
+  .beacon-blink-1,
+  .beacon-blink-2,
+  .beacon-pulse,
+  .planet-cloud-bands,
+  .planet-city-lights {
+    animation: none !important;
+  }
+}

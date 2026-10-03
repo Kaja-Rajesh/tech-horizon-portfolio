@@ -1,0 +1,307 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 16px 24px;
+  background: transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar--scrolled {
+  padding: 10px 24px;
+  background: rgba(7, 10, 18, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 212, 255, 0.05);
+}
+
+.navbar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: left;
+}
+
+.navbar-logo-wrap {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.navbar-logo-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid rgba(0, 212, 255, 0.5);
+}
+
+.navbar-logo-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, transparent 70%);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.navbar-brand-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-brand {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+  line-height: 1.1;
+}
+
+.navbar-brand-sub {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #00d4ff;
+}
+
+/* Desktop Links */
+.navbar-links {
+  display: flex;
+  gap: 4px;
+  list-style: none;
+  align-items: center;
+  background: rgba(14, 20, 32, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 4px 6px;
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+}
+
+.navbar-link {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #94a3b8;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  transition: color 0.2s ease;
+  z-index: 1;
+}
+
+.navbar-link:hover {
+  color: #ffffff;
+}
+
+.navbar-link--active {
+  color: #00d4ff;
+}
+
+.navbar-active-pill {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 9999px;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.15);
+  z-index: -1;
+}
+
+/* Right items */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Futuristic Audio Mute/Unmute Toggle */
+.navbar-audio-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(14, 20, 32, 0.85);
+  border: 1px solid rgba(0, 212, 255, 0.35);
+  color: #00d4ff;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.15);
+  position: relative;
+}
+
+.navbar-audio-toggle:hover {
+  background: rgba(0, 212, 255, 0.18);
+  border-color: #00d4ff;
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.45);
+  transform: scale(1.06);
+}
+
+.navbar-audio-toggle--muted {
+  border-color: rgba(148, 163, 184, 0.25);
+  color: #64748b;
+  box-shadow: none;
+}
+
+.navbar-audio-toggle--muted:hover {
+  border-color: rgba(148, 163, 184, 0.5);
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 10px rgba(148, 163, 184, 0.2);
+}
+
+.audio-active-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.audio-wave-dot {
+  position: absolute;
+  top: -2px;
+  right: -3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #00d4ff;
+  box-shadow: 0 0 6px #00d4ff;
+  animation: audio-pulse-glow 1.8s infinite ease-in-out;
+}
+
+@keyframes audio-pulse-glow {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1.4); opacity: 1; }
+}
+
+.navbar-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  color: #00d4ff;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.navbar-cta-pill:hover {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(168, 85, 247, 0.3));
+  border-color: #00d4ff;
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.navbar-cta-sparkle {
+  color: #fbbf24;
+}
+
+/* Hamburger */
+.navbar-hamburger {
+  display: none;
+  background: rgba(14, 20, 32, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #f1f5f9;
+  cursor: pointer;
+  padding: 8px;
+  transition: all 0.2s ease;
+}
+
+.navbar-hamburger:hover {
+  border-color: #00d4ff;
+  color: #00d4ff;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  top: 70px;
+  left: 16px;
+  right: 16px;
+  z-index: 999;
+}
+
+.mobile-menu-inner {
+  background: rgba(11, 15, 26, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 212, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  gap: 6px;
+}
+
+.mobile-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #94a3b8;
+  padding: 12px 14px;
+  border-radius: 10px;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.mobile-menu-link:hover,
+.mobile-menu-link--active {
+  color: #00d4ff;
+  background: rgba(0, 212, 255, 0.08);
+}
+
+.mobile-menu-index {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.72rem;
+  color: rgba(0, 212, 255, 0.5);
+}
+
+@media (max-width: 860px) {
+  .navbar-links {
+    display: none;
+  }
+  .navbar-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,99 @@
+/* Global Desktop Cursor Reset: Hides standard arrow cursor across all interactive elements */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body,
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+}
+
+/* Rocket Cursor Container */
+.rocket-cursor-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+/* Stardust & Exhaust Canvas */
+.rocket-cursor-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99998;
+}
+
+/* Rocket Spacecraft Element */
+.rocket-cursor-craft {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  margin-left: -14px;
+  margin-top: -14px;
+  pointer-events: none;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform, opacity;
+  opacity: 0;
+  filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.55)) drop-shadow(0 0 16px rgba(124, 58, 237, 0.35));
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.rocket-svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+  overflow: visible;
+}
+
+/* Dynamic Thruster Exhaust Flame */
+.rocket-flame {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: top center;
+  pointer-events: none;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.85)) drop-shadow(0 0 12px rgba(56, 189, 248, 0.6));
+}
+
+/* Hover Interaction: Boosted Thruster & Shield Aura */
+.rocket-cursor-craft.rocket--hovering {
+  filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.95))
+          drop-shadow(0 0 24px rgba(168, 85, 247, 0.75))
+          drop-shadow(0 0 35px rgba(0, 212, 255, 0.4));
+}
+
+/* Click Interaction: Energy Shockwave Recoil */
+.rocket-cursor-craft.rocket--clicking {
+  filter: drop-shadow(0 0 18px rgba(0, 212, 255, 1))
+          drop-shadow(0 0 28px rgba(255, 255, 255, 0.95))
+          drop-shadow(0 0 40px rgba(168, 85, 247, 0.8));
+}
+
+/* Double-Click Interaction: Hyperboost Flare */
+.rocket-cursor-craft.rocket--boost {
+  filter: drop-shadow(0 0 18px rgba(0, 212, 255, 1))
+          drop-shadow(0 0 32px rgba(56, 189, 248, 0.95))
+          drop-shadow(0 0 48px rgba(168, 85, 247, 0.85))
+          drop-shadow(0 0 65px rgba(255, 255, 255, 0.7));
+}
+
+/* Mobile & Touch Devices: Disable custom cursor and fallback to native touch gestures */
+@media (hover: none), (pointer: coarse) {
+  .rocket-cursor-root {
+    display: none !important;
+  }
+}

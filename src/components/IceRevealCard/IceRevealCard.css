@@ -1,0 +1,447 @@
+/* ICE REVEAL CARD / HOLOGRAPHIC STATION PANEL CONTAINER */
+.ice-card {
+  position: relative;
+  width: 250px;
+  height: 290px;
+  border-radius: 18px;
+  overflow: visible;
+  cursor: pointer;
+  background: rgba(10, 15, 26, 0.88);
+  border: 1px solid var(--card-color, #00d4ff);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.65),
+    0 0 20px rgba(0, 0, 0, 0.4),
+    inset 0 0 25px rgba(0, 0, 0, 0.7);
+  transition: transform 0.25s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  user-select: none;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.ice-card:hover {
+  border-color: var(--card-color, #00d4ff);
+  box-shadow: 
+    0 16px 45px rgba(0, 0, 0, 0.8),
+    0 0 32px var(--card-glow, rgba(0, 212, 255, 0.4)),
+    inset 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Holographic Panel Subtle Float Animation */
+.holo-panel {
+  will-change: transform;
+}
+
+/* Top Telemetry Header */
+.holo-hud-header {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.holo-hud-tag {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--card-color, #00d4ff);
+  background: rgba(0, 212, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+}
+
+.holo-hud-code {
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: #64748b;
+}
+
+/* Dynamic Cursor Light inside Glass */
+.ice-cursor-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Crystal Border Accent */
+.ice-crystal-border {
+  position: absolute;
+  inset: -1px;
+  border-radius: 19px;
+  border: 1px solid var(--card-color, #00d4ff);
+  opacity: 0.45;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ice-card:hover .ice-crystal-border {
+  opacity: 0.9;
+}
+
+/* Holographic Corner Brackets */
+.ice-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--card-color, #00d4ff);
+  border-style: solid;
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 6;
+}
+
+.ice-corner--tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+.ice-corner--tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+.ice-corner--bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+.ice-corner--br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+.ice-card:hover .ice-corner {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   INITIAL FROZEN STATE: PURE CRYSTAL ICE (NO TEXT)
+   ========================================================================== */
+.ice-frozen-capsule {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+}
+
+.ice-frost-layer {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(200, 235, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 80%, rgba(140, 200, 255, 0.08) 0%, transparent 60%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.35) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  pointer-events: none;
+}
+
+.ice-texture-noise {
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(255, 255, 255, 0.012) 10px,
+      rgba(255, 255, 255, 0.012) 12px
+    );
+  pointer-events: none;
+}
+
+/* Crystalline Cracks SVG */
+.ice-cracks-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.7;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.4));
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.ice-card:hover .ice-cracks-svg {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px var(--card-color, #00d4ff));
+}
+
+/* Internal Glowing Crystal Core */
+.ice-internal-core {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  z-index: 2;
+  margin-top: 10px;
+}
+
+.ice-core-glow {
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--card-color, #00d4ff) 0%, transparent 70%);
+  filter: blur(14px);
+  opacity: 0.55;
+  animation: core-pulse 3s ease-in-out infinite;
+}
+
+@keyframes core-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.45; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
+.ice-core-ring {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px dashed var(--card-color, #00d4ff);
+  opacity: 0.4;
+  animation: rotate-slow 16s linear infinite;
+}
+
+.ice-core-sparkle {
+  color: var(--card-color, #00d4ff);
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px var(--card-color, #00d4ff));
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Trapped Micro Particles */
+.ice-particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ice-trapped-dot {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--card-color, #00d4ff);
+  box-shadow: 0 0 6px var(--card-color, #00d4ff);
+  opacity: 0.6;
+  animation: trapped-float 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes trapped-float {
+  from { transform: translateY(0px) scale(0.8); opacity: 0.3; }
+  to { transform: translateY(-8px) scale(1.3); opacity: 0.85; }
+}
+
+/* Shimmer Sweep */
+.ice-shimmer-sweep {
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: skewX(-25deg);
+  animation: ice-sweep 5s infinite;
+  pointer-events: none;
+}
+
+@keyframes ice-sweep {
+  0% { left: -120%; }
+  30% { left: 180%; }
+  100% { left: 180%; }
+}
+
+/* Lock Status Pill */
+.holo-lock-status {
+  position: absolute;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+  background: rgba(15, 23, 42, 0.7);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.holo-lock-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--card-color, #00d4ff);
+  box-shadow: 0 0 6px var(--card-color, #00d4ff);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   BLASTING SHARDS & ENERGY WAVE
+   ========================================================================== */
+.ice-blast-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+
+.ice-crystal-shard {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--shard-size, 8px);
+  height: var(--shard-size, 8px);
+  background: linear-gradient(135deg, #ffffff, var(--card-color, #00d4ff));
+  box-shadow: 0 0 8px var(--card-color, #00d4ff);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  pointer-events: none;
+}
+
+.ice-radial-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 140px;
+  margin-left: -70px;
+  margin-top: -70px;
+  border-radius: 50%;
+  border: 2px solid var(--card-color, #00d4ff);
+  box-shadow: 0 0 20px var(--card-color, #00d4ff);
+  pointer-events: none;
+}
+
+.ice-blast-flash {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, var(--card-color, #00d4ff) 50%, transparent 80%);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   REVEALED STATE (LOWER POSITIONED TITLE & DESCRIPTION)
+   ========================================================================== */
+.ice-revealed-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 38px 20px 24px;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 3;
+}
+
+.revealed-ambient-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: radial-gradient(circle at 50% 40%, var(--card-glow, rgba(0, 212, 255, 0.15)) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Upper-Middle Icon */
+.revealed-icon-wrap {
+  position: relative;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.revealed-icon-halo {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--card-color, #00d4ff) 0%, transparent 70%);
+  filter: blur(10px);
+  opacity: 0.6;
+}
+
+.revealed-icon-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--card-color, #00d4ff);
+  box-shadow: 0 0 15px var(--card-color, #00d4ff);
+}
+
+.revealed-icon-svg {
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 0 8px var(--card-color, #00d4ff));
+}
+
+/* Lower text group */
+.revealed-text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.revealed-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.28rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0 0 6px;
+  text-shadow: 0 0 16px var(--card-glow, rgba(0, 212, 255, 0.4));
+}
+
+.revealed-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #94a3b8;
+  margin: 0 0 12px;
+  max-width: 200px;
+}
+
+.revealed-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--card-color, #00d4ff);
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.status-dot-active {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
